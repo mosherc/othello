@@ -1,0 +1,25 @@
+.cell {
+  border: 1px solid black;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+.piece {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+
+  &.blue {
+    background-color: blue;
+  }
+  &.red {
+    background-color: red;
+  }
+}
+.blue { 
+  color: blue;
+}
+.red {
+  color: red;
+}

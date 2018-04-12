@@ -1,0 +1,12 @@
+<table class="board">
+  <tr class="row" *ngFor="let rows of othello.cells; let row = index">
+      <td *ngFor="let cell of rows; let col = index" [ngClass]="{'cell': cell === PLAYER_NONE, 'piece' : cell !== PLAYER_NONE, 'blue' : cell === PLAYER_BLUE, 'red' : cell === PLAYER_RED}" (click)="othello.takeTurn(row, col)"></td>
+  </tr>
+</table>
+<br/>
+<div id="status">Current Player: <span [ngClass]="othello.currentPlayer === PLAYER_RED ? 'red' : 'blue'">{{othello.currentPlayer === PLAYER_RED ? 'RED' : 'BLUE'}}</span>
+</div>
+<div>Red Score: {{othello.redScore}}
+</div>
+<div>Blue Score: {{othello.blueScore}}
+</div>

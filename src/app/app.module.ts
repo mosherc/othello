@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { OthelloComponent } from './othello/othello.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OthelloComponent
   ],
   imports: [
     BrowserModule
