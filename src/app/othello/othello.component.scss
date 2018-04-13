@@ -1,25 +1,67 @@
+$shadow: 1px 2px 4px lightgray;
+$red: #dc3545;
+$blue: #007bff;
+
 .cell {
-  border: 1px solid black;
-  height: 50px;
-  width: 50px;
+  border: 1px solid lightgray;
+  height: 60px;
+  width: 60px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #EEE;
+  }
 }
+
 .piece {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   margin: 5px;
+  box-shadow: 1px 2px 1px gray;
 
   &.blue {
-    background-color: blue;
+    background-color: $blue;
   }
   &.red {
-    background-color: red;
+    background-color: $red;
   }
 }
+
 .blue { 
-  color: blue;
+  color: $blue;
 }
+
 .red {
-  color: red;
+  color: $red;
+}
+
+.card {
+  box-shadow: $shadow;
+}
+
+.score {
+  margin-top: 10px;
+
+  td {
+    width: 100px;
+    font-size: 64px;
+  }
+
+  tbody td {
+    padding-top: 0;
+  }
+  
+}
+
+.board-col > * {
+  margin-bottom: 1rem;
+}
+
+.table * {
+  border: none !important;
+}
+
+.card-header {
+  font-size: 48px;
 }

@@ -6,6 +6,8 @@ export class Othello {
   PLAYER_BLUE = -1;
   PLAYER_NONE = 0;
   currentPlayer = 0;
+  gameOver = false;
+  piecesFlipped = 0;
 
   constructor(
     public cells = [[]],
@@ -18,15 +20,15 @@ export class Othello {
     this.cells[3][4] = this.PLAYER_BLUE;
     this.cells[4][3] = this.PLAYER_BLUE;
     this.currentPlayer = this.PLAYER_RED;
-    console.log(this.cells);
   }
 
   takeTurn(row, col) {
-    if (!this.cells[row][col]) {
+    if (!this.cells[row][col] && !this.gameOver) {
       this.cells[row][col] = this.currentPlayer;
       this.checkFlanks(row, col);
       this.currentPlayer *= -1;
       this.calcScores();
+      this.gameOver = this.isGameOver();
     }
   }
 
@@ -36,13 +38,16 @@ export class Othello {
     this.blueScore = flat.filter(cell => cell === this.PLAYER_BLUE).reduce((a, b) => a + b) * -1;
   }
 
+  isGameOver() {
+    return this.redScore + this.blueScore === 64;
+  }
+
   checkFlanks(row, col) {
-    this.checkVert(row, col);
-    this.checkHoriz(row, col);
-    this.checkDiag(row, col);
+    this.piecesFlipped = this.checkVert(row, col) + this.checkHoriz(row, col) + this.checkDiag(row, col);
   }
 
   checkVert(row, col) {
+    let count = 0;
     const start = row;
     let end = row;
     while (--row >= 0) {
@@ -57,6 +62,7 @@ export class Othello {
       end = row;
       for (let y = start - 1; y > end; y--) {
         this.cells[y][col] *= -1;
+        count++;
       }
     }
 
@@ -74,11 +80,14 @@ export class Othello {
       end = row;
       for (let y = start + 1; y < end; y++) {
         this.cells[y][col] *= -1;
+        count++;
       }
     }
+    return count;
   }
 
   checkHoriz(row, col) {
+    let count = 0;
     const start = col;
     let end = col;
     while (--col >= 0) {
@@ -93,6 +102,7 @@ export class Othello {
       end = col;
       for (let x = start - 1; x > end; x--) {
         this.cells[row][x] *= -1;
+        count++;
       }
     }
 
@@ -111,11 +121,14 @@ export class Othello {
       end = col;
       for (let x = start + 1; x < end; x++) {
         this.cells[row][x] *= -1;
+        count++;
       }
     }
+    return count;
   }
 
   checkDiag(row, col) {
+    let count = 0;
     const startCol = col;
     const startRow = row;
     let endCol = col;
@@ -137,6 +150,7 @@ export class Othello {
         this.cells[y][x] *= -1;
         x++;
         y++;
+        count++;
       }
     }
 
@@ -161,6 +175,7 @@ export class Othello {
         this.cells[y][x] *= -1;
         x--;
         y++;
+        count++;
       }
     }
 
@@ -185,6 +200,7 @@ export class Othello {
         this.cells[y][x] *= -1;
         x++;
         y--;
+        count++;
       }
     }
 
@@ -208,7 +224,9 @@ export class Othello {
         this.cells[y][x] *= -1;
         x--;
         y--;
+        count++;
       }
     }
+    return count;
   }
 }

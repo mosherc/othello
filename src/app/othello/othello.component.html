@@ -1,12 +1,55 @@
-<table class="board">
-  <tr class="row" *ngFor="let rows of othello.cells; let row = index">
-      <td *ngFor="let cell of rows; let col = index" [ngClass]="{'cell': cell === PLAYER_NONE, 'piece' : cell !== PLAYER_NONE, 'blue' : cell === PLAYER_BLUE, 'red' : cell === PLAYER_RED}" (click)="othello.takeTurn(row, col)"></td>
-  </tr>
-</table>
-<br/>
-<div id="status">Current Player: <span [ngClass]="othello.currentPlayer === PLAYER_RED ? 'red' : 'blue'">{{othello.currentPlayer === PLAYER_RED ? 'RED' : 'BLUE'}}</span>
-</div>
-<div>Red Score: {{othello.redScore}}
-</div>
-<div>Blue Score: {{othello.blueScore}}
+<div class="m-5 text-center card">
+  <div class="card-header font-weight-bold" (click)="playOthello()">
+    Othello
+  </div>
+  <div class="row card-body m-3">
+    <div class="col-4 my-auto">
+
+
+      <div *ngIf="othello.gameOver">
+        The game is over! The winner is {{othello.redScore > othello.blueScore ? 'Red' : 'Blue'}}!
+      </div>
+      <table class="mx-auto table score">
+        <thead>
+          <tr>
+            <th>
+              Red
+            </th>
+            <th>
+              Blue
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{othello.redScore}}
+            </td>
+            <td>
+              {{othello.blueScore}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button class="btn btn-primary" (click)="newGame()">
+          New Game
+        </button>
+      </div>
+    </div>
+    <div class="col-8 board-col">
+      <div>Current Player:
+        <span [ngClass]="othello.currentPlayer === PLAYER_RED ? 'red' : 'blue'">{{othello.currentPlayer === PLAYER_RED ? 'RED' : 'BLUE'}}</span>
+      </div>
+      <table class="board mx-auto">
+        <tr class="row" *ngFor="let rows of othello.cells; let row = index">
+          <td *ngFor="let cell of rows; let col = index" [ngClass]="{'cell': cell === PLAYER_NONE, 'piece' : cell !== PLAYER_NONE, 'blue' : cell === PLAYER_BLUE, 'red' : cell === PLAYER_RED}"
+            (click)="othello.takeTurn(row, col)"></td>
+        </tr>
+      </table>
+      <div>Pieces Flipped by
+        <span [ngClass]="othello.currentPlayer !== PLAYER_RED ? 'red' : 'blue'">{{othello.currentPlayer !== PLAYER_RED ? 'RED' : 'BLUE'}}</span>: {{othello.piecesFlipped}}
+      </div>
+    </div>
+  </div>
 </div>
