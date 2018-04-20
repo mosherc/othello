@@ -39,7 +39,7 @@ export class Othello {
   }
 
   isGameOver() {
-    return this.redScore + this.blueScore === 64;
+    return this.redScore + this.blueScore === this.MAX_COLS * this.MAX_ROWS;
   }
 
   checkFlanks(row, col) {
